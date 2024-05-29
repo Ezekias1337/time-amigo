@@ -3,8 +3,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import Home from "../screens/Home";
-import PreferencesScreen from "../screens/PreferencesScreen";
+import Home from "../app/Home";
+import PreferencesScreen from "../app/PreferencesScreen";
 
 export type RootStackParamList = {
   Home: undefined;
@@ -41,11 +41,8 @@ const RootNavigator: React.FC = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        {isFirstLaunch ? (
-          <Stack.Screen name="Preferences" component={PreferencesScreen} />
-        ) : (
-          <Stack.Screen name="Home" component={Home} />
-        )}
+        <Stack.Screen name="Preferences" component={PreferencesScreen} />
+        <Stack.Screen name="Home" component={Home} />
       </Stack.Navigator>
     </NavigationContainer>
   );

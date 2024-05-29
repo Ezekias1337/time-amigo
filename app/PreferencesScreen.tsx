@@ -4,6 +4,8 @@ import { useNavigation, NavigationProp } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { RootStackParamList } from '../navigation/RootNavigator';
 
+import { colors } from '../styles/variables';
+
 type PreferencesScreenNavigationProp = NavigationProp<RootStackParamList, 'Preferences'>;
 
 const PreferencesScreen: React.FC = () => {
@@ -18,6 +20,7 @@ const PreferencesScreen: React.FC = () => {
     <View style={styles.container}>
       <Text>Set Your Preferences</Text>
       <Button title="Save Preferences" onPress={handlePreferencesSet} />
+      <Text>Hello</Text>
     </View>
   );
 };
@@ -27,6 +30,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: colors.neutral800,
   },
 });
 

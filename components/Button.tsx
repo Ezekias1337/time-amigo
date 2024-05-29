@@ -9,6 +9,7 @@ interface ButtonProps {
   text: string;
   variant: 'primary' | 'primaryDark' | 'success' | 'warning' | 'error' | 'info' | 'neutral' | 'neutralDark';
   icon?: FontAwesomeIconNames; // Ensuring the icon is a valid FontAwesome icon name
+  iconSize?: number;
   leftIcon?: boolean;
   rightIcon?: boolean;
   loading?: boolean;
@@ -24,6 +25,7 @@ const Button: FC<ButtonProps> = ({
   text,
   variant,
   icon,
+  iconSize = 32,
   leftIcon = false,
   rightIcon = false,
   loading = false,
@@ -46,13 +48,13 @@ const Button: FC<ButtonProps> = ({
 
   const renderButtonContent = () => (
     <View style={styles.buttonContent}>
-      {leftIcon && icon && <FontAwesome name={icon} style={styles.leftIcon} />}
+      {leftIcon && icon && <FontAwesome name={icon} style={styles.leftIcon} size={iconSize} />}
       {loading ? (
         <ActivityIndicator color={styles.loader.color} />
       ) : (
         <Text style={styles.buttonText}>{text}</Text>
       )}
-      {rightIcon && icon && <FontAwesome name={icon} style={styles.rightIcon} />}
+      {rightIcon && icon && <FontAwesome name={icon} style={styles.rightIcon} size={iconSize}/>}
     </View>
   );
 
