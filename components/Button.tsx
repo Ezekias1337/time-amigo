@@ -107,13 +107,13 @@ const styles = StyleSheet.create({
     borderColor: colors.neutral400,
   },
   smallButton: {
-    fontSize: fontSizes.body,
-  },
-  mediumButton: {
     fontSize: fontSizes.general,
   },
-  largeButton: {
+  mediumButton: {
     fontSize: fontSizes.header3,
+  },
+  largeButton: {
+    fontSize: fontSizes.header2,
   },
   loader: {
     color: colors.neutral800,

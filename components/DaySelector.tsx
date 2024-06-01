@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { TouchableOpacity, View, Text } from "react-native";
 import { StyleSheet } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { colors, borderRadius } from "../styles/variables";
+import { colors, borderRadius, fontSizes } from "../styles/variables";
 
 const DayOfWeekSelector: React.FC = () => {
   const daysOfWeek: string[] = [
@@ -37,7 +37,7 @@ const DayOfWeekSelector: React.FC = () => {
           key={day}
           onPress={() => toggleDay(day)}
         >
-          <Text>{`${day[0]}`}</Text>
+          <Text style={{ fontSize: fontSizes.general }}>{`${day[0]}`}</Text>
         </TouchableOpacity>
       ))}
     </View>

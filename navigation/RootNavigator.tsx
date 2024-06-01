@@ -4,7 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import Home from "../app/Home";
-import PreferencesScreen from "../app/PreferencesScreen";
+/* import PreferencesScreen from "../app/PreferencesScreen"; */
 
 export type RootStackParamList = {
   Home: undefined;
@@ -16,7 +16,7 @@ const Stack = createStackNavigator<RootStackParamList>();
 const RootNavigator: React.FC = () => {
   const [isFirstLaunch, setIsFirstLaunch] = useState<boolean | null>(null);
 
-  useEffect(() => {
+  /* useEffect(() => {
     const checkFirstLaunch = async () => {
       try {
         const firstLaunch = await AsyncStorage.getItem("isFirstLaunch");
@@ -36,12 +36,12 @@ const RootNavigator: React.FC = () => {
 
   if (isFirstLaunch === null) {
     return null; // or a loading spinner
-  }
+  } */
 
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Preferences" component={PreferencesScreen} />
+        {/* <Stack.Screen name="Preferences" component={PreferencesScreen} /> */}
         <Stack.Screen name="Home" component={Home} />
       </Stack.Navigator>
     </NavigationContainer>
