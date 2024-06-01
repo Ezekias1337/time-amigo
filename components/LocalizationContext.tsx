@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import * as Localization from 'expo-localization';
+import { pause } from 'expo-speech';
 
 // Define your translations
 const translations: {
@@ -17,6 +18,7 @@ const translations: {
       every: 'Every',
       pleaseSelect: 'None',
       start: 'Start',
+      pause: 'Pause',
       theTimeIs: 'The Time Is',
       sunday: 'Sunday',
       monday: 'Monday',
@@ -36,6 +38,7 @@ const translations: {
       every: 'Cada',
       pleaseSelect: 'Ninguno',
       start: 'Comenzar',
+      pause: 'Pausar',
       theTimeIs: 'La Hora Es',
       sunday: 'Domingo',
       monday: 'Lunes',

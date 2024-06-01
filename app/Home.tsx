@@ -94,7 +94,7 @@ const Home: React.FC = () => {
       <View style={styles.buttonsContainer}>
         <Button
           variant="primary"
-          text={translate("start")}
+          text={startAnnouncingTime === true ? translate("pause") : translate("start")}
           icon={startAnnouncingTime === true ? "pause" : "play"}
           leftIcon={true}
           iconSize={32}
