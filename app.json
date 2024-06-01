@@ -1,32 +1,30 @@
 {
   "expo": {
-    "name": "time-amigo",
-    "slug": "time-amigo",
-    "version": "1.0.0",
+    "name": "Time Amigo",
+    "slug": "Time Amigo",
+    "version": "2.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "icon": "./assets/clock-solid.png",
+    "userInterfaceStyle": "dark",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/clock-solid.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#292a2c"
     },
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./assets/clock-solid.png",
+        "backgroundColor": "#292a2c"
       },
       "package": "com.ezekias1337.timeamigo"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": [
-      "expo-localization"
-    ],
+    "plugins": ["expo-localization"],
     "extra": {
       "eas": {
         "projectId": "4ac718f5-fc32-4b3a-960c-a7e37cec364f"

@@ -4,6 +4,7 @@ import DateTimePicker, {
   DateTimePickerEvent,
 } from "@react-native-community/datetimepicker";
 import * as Speech from "expo-speech";
+import { StatusBar } from 'expo-status-bar';
 import Button from "../components/Button";
 import DayOfWeekSelector from "../components/DaySelector";
 import { useLocalization } from "../components/LocalizationContext";
@@ -91,6 +92,7 @@ const Home: React.FC = () => {
 
   return (
     <View style={styles.container}>
+      <StatusBar style="light" />
       <View style={styles.buttonsContainer}>
         <Button
           variant="primary"
