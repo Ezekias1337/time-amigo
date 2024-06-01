@@ -64,6 +64,18 @@ const Home: React.FC = () => {
     });
   };
 
+  const increaseFrequency = () => {
+    if (frequency < 60) {
+      setFrequency(frequency + 1);
+    }
+  };
+  
+  const decreaseFrequency = () => {
+    if (frequency > 1) {
+      setFrequency(frequency - 1);
+    }
+  };
+
   useEffect(() => {
     if (startAnnouncingTime === true) {
       // Announce the time immediately
@@ -81,7 +93,7 @@ const Home: React.FC = () => {
     <View style={styles.container}>
       <View style={styles.buttonsContainer}>
         <Button
-          variant="success"
+          variant="primary"
           text={translate("start")}
           icon={startAnnouncingTime === true ? "pause" : "play"}
           leftIcon={true}
@@ -89,12 +101,22 @@ const Home: React.FC = () => {
           onClickHandler={() => setStartAnnouncingTime(!startAnnouncingTime)}
         />
         <Button
-          variant="primary"
-          text={translate("changeFrequency")}
+          variant="success"
+          text={translate("increaseFrequency")}
           icon="plus"
           leftIcon={true}
           iconSize={32}
-          /* onClickHandler={() => showDatepicker()} */
+          onClickHandler={() => increaseFrequency()}
+          disabled={frequency === 60 ? true : false}
+        />
+        <Button
+          variant="error"
+          text={translate("decreaseFrequency")}
+          icon="minus"
+          leftIcon={true}
+          iconSize={32}
+          onClickHandler={() => decreaseFrequency()}
+          disabled={frequency > 1 ? false : true}
         />
         {/* <Button
           variant="warning"
@@ -105,7 +127,7 @@ const Home: React.FC = () => {
           onClickHandler={() => showTimepicker()}
         /> */}
       </View>
-      
+
       {/* <View style={styles.daySelectorContainer}>
         <DayOfWeekSelector />
       </View> */}

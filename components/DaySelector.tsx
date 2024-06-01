@@ -3,16 +3,19 @@ import { TouchableOpacity, View, Text } from "react-native";
 import { StyleSheet } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { colors, borderRadius, fontSizes } from "../styles/variables";
+import { useLocalization } from "../components/LocalizationContext";
 
 const DayOfWeekSelector: React.FC = () => {
+  const { translate } = useLocalization();
+
   const daysOfWeek: string[] = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
+    translate("sunday"),
+    translate("monday"),
+    translate("tuesday"),
+    translate("wednesday"),
+    translate("thursday"),
+    translate("friday"),
+    translate("saturday"),
   ];
   const [selectedDays, setSelectedDays] = useState<string[]>([]);
 
@@ -62,7 +65,7 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "space-evenly",
     gap: 10,
-  }
+  },
 });
 
 export default DayOfWeekSelector;

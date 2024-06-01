@@ -8,7 +8,8 @@ const translations: {
     };
   } = {
     en: {
-      changeFrequency: 'Change Frequency',
+      increaseFrequency: 'Increase Frequency',
+      decreaseFrequency: 'Decrease Frequency',
       selectTime: 'Select Time',
       frequency: 'Frequency',
       selectedTime: 'Selected Time',
@@ -17,10 +18,17 @@ const translations: {
       pleaseSelect: 'None',
       start: 'Start',
       theTimeIs: 'The Time Is',
-      // Add more keys and translations here
+      sunday: 'Sunday',
+      monday: 'Monday',
+      tuesday: 'Tuesday',
+      wednesday: 'Wednesday',
+      thursday: 'Thursday',
+      friday: 'Friday',
+      saturday: 'Saturday',
     },
     es: {
-      changeFrequency: 'Cambiar Frecuencia',
+      increaseFrequency: 'Aumentar Frecuencia',
+      decreaseFrequency: 'Reducir Frecuencia',
       selectTime: 'Seleccionar Hora',
       frequency: 'Frecuencia',
       selectedTime: 'Hora Seleccionada',
@@ -29,9 +37,14 @@ const translations: {
       pleaseSelect: 'Ninguno',
       start: 'Comenzar',
       theTimeIs: 'La Hora Es',
-      // Add more keys and translations here
+      sunday: 'Domingo',
+      monday: 'Lunes',
+      tuesday: 'Martes',
+      wednesday: 'Miércoles',
+      thursday: 'Jueves',
+      friday: 'Viernes',
+      saturday: 'Sábado',
     },
-    // Add more languages here
   };
 
 // Create a context
