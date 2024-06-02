@@ -1,13 +1,36 @@
-import React, { FC } from 'react';
-import { TouchableOpacity, Text, View, ActivityIndicator, StyleSheet, GestureResponderEvent } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { FontAwesome } from '@expo/vector-icons';
-import { colors, fontSizes, borderRadius } from '../styles/variables';
+// Library Imports
+import React, { FC } from "react";
+import {
+  TouchableOpacity,
+  Text,
+  View,
+  ActivityIndicator,
+  GestureResponderEvent,
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { FontAwesome } from "@expo/vector-icons";
+
+// Interfaces and Types
 import FontAwesomeIconNames from "../types/FontAwesome";
+
+// CSS
+import {
+  buttonStyles,
+  buttonVariantToStyle,
+  buttonSizeToStyle,
+} from "../styles/component-specific/button";
 
 interface ButtonProps {
   text: string;
-  variant: 'primary' | 'primaryDark' | 'success' | 'warning' | 'error' | 'info' | 'neutral' | 'neutralDark';
+  variant:
+    | "primary"
+    | "primaryDark"
+    | "success"
+    | "warning"
+    | "error"
+    | "info"
+    | "neutral"
+    | "neutralDark";
   icon?: FontAwesomeIconNames; // Ensuring the icon is a valid FontAwesome icon name
   iconSize?: number;
   leftIcon?: boolean;
@@ -18,7 +41,7 @@ interface ButtonProps {
   url?: string;
   buttonId?: string | null;
   additionalClassNames?: string;
-  buttonSize?: 'small' | 'medium' | 'large';
+  buttonSize?: "small" | "medium" | "large";
 }
 
 const Button: FC<ButtonProps> = ({
@@ -34,7 +57,7 @@ const Button: FC<ButtonProps> = ({
   url,
   buttonId = null,
   additionalClassNames,
-  buttonSize = 'small',
+  buttonSize = "small",
 }) => {
   const navigation = useNavigation();
 
@@ -47,28 +70,40 @@ const Button: FC<ButtonProps> = ({
   };
 
   const renderButtonContent = () => (
-    <View style={styles.buttonContent}>
-      {leftIcon && icon && <FontAwesome name={icon} style={styles.leftIcon} size={iconSize} />}
-      {loading ? (
-        <ActivityIndicator color={styles.loader.color} />
-      ) : (
-        <Text style={styles.buttonText}>{text}</Text>
+    <View style={buttonStyles.buttonContent}>
+      {leftIcon && icon && (
+        <FontAwesome
+          name={icon}
+          style={buttonStyles.leftIcon}
+          size={iconSize}
+        />
       )}
-      {rightIcon && icon && <FontAwesome name={icon} style={styles.rightIcon} size={iconSize}/>}
+      {loading ? (
+        <ActivityIndicator color={buttonStyles.loader.color} />
+      ) : (
+        <Text style={buttonStyles.buttonText}>{text}</Text>
+      )}
+      {rightIcon && icon && (
+        <FontAwesome
+          name={icon}
+          style={buttonStyles.rightIcon}
+          size={iconSize}
+        />
+      )}
     </View>
   );
 
-  const variantStyles = variantToStyle[variant];
-  const sizeStyles = sizeToStyle[buttonSize];
+  const variantStyles = buttonVariantToStyle[variant];
+  const sizeStyles = buttonSizeToStyle[buttonSize];
 
   return (
     <TouchableOpacity
       style={[
-        styles.button,
+        buttonStyles.button,
         variantStyles,
         sizeStyles,
-        additionalClassNames ? (styles as any)[additionalClassNames] : {},
-        (disabled || loading) && styles.disabledButton,
+        additionalClassNames ? (buttonStyles as any)[additionalClassNames] : {},
+        (disabled || loading) && buttonStyles.disabledButton,
       ]}
       onPress={handlePress}
       disabled={disabled || loading}
@@ -77,104 +112,6 @@ const Button: FC<ButtonProps> = ({
       {renderButtonContent()}
     </TouchableOpacity>
   );
-};
-
-const styles = StyleSheet.create({
-  button: {
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    borderRadius: borderRadius.borderRadius,
-    textAlign: 'center',
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
-  buttonContent: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  buttonText: {
-    fontSize: fontSizes.body,
-  },
-  leftIcon: {
-    paddingRight: 16,
-  },
-  rightIcon: {
-    paddingLeft: 16,
-  },
-  disabledButton: {
-    backgroundColor: colors.neutral200,
-    borderColor: colors.neutral400,
-  },
-  smallButton: {
-    fontSize: fontSizes.general,
-  },
-  mediumButton: {
-    fontSize: fontSizes.header3,
-  },
-  largeButton: {
-    fontSize: fontSizes.header2,
-  },
-  loader: {
-    color: colors.neutral800,
-  },
-  primaryButton: {
-    backgroundColor: colors.primary500,
-    color: colors.primary100,
-    borderColor: colors.primary100,
-  },
-  primaryDarkButton: {
-    backgroundColor: colors.primary900,
-    color: colors.primary200,
-    borderColor: colors.primary200,
-  },
-  successButton: {
-    backgroundColor: colors.success500,
-    color: colors.success900,
-    borderColor: colors.success900,
-  },
-  warningButton: {
-    backgroundColor: colors.warning500,
-    color: colors.warning900,
-    borderColor: colors.warning900,
-  },
-  errorButton: {
-    backgroundColor: colors.error500,
-    color: colors.error900,
-    borderColor: colors.error900,
-  },
-  infoButton: {
-    backgroundColor: colors.info500,
-    color: colors.info900,
-    borderColor: colors.info900,
-  },
-  neutralButton: {
-    backgroundColor: colors.neutral200,
-    color: colors.neutral800,
-    borderColor: colors.neutral800,
-  },
-  neutralDarkButton: {
-    backgroundColor: colors.neutral900,
-    color: colors.neutral300,
-    borderColor: colors.neutral300,
-  },
-});
-
-const variantToStyle = {
-  primary: styles.primaryButton,
-  primaryDark: styles.primaryDarkButton,
-  success: styles.successButton,
-  warning: styles.warningButton,
-  error: styles.errorButton,
-  info: styles.infoButton,
-  neutral: styles.neutralButton,
-  neutralDark: styles.neutralDarkButton,
-};
-
-const sizeToStyle = {
-  small: styles.smallButton,
-  medium: styles.mediumButton,
-  large: styles.largeButton,
 };
 
 export default Button;
