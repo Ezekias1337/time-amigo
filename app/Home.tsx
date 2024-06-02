@@ -1,9 +1,7 @@
 // Library Imports
 import React, { useEffect, useState } from "react";
 import { View, Text, AppState } from "react-native";
-import DateTimePicker, {
-  DateTimePickerEvent,
-} from "@react-native-community/datetimepicker";
+import DateTimePicker, { DateTimePickerEvent } from "@react-native-community/datetimepicker";
 import { useKeepAwake } from "expo-keep-awake";
 import { StatusBar } from "expo-status-bar";
 
@@ -14,10 +12,7 @@ import handleAppStateChange from "../functions/page-specific/home/handleAppState
 import loadSettingsFromStorage from "../functions/page-specific/home/loadSettingsFromStorage";
 import saveTimeToStorage from "../functions/page-specific/home/saveTimeToStorage";
 import showTimepicker from "../functions/page-specific/home/showTimePicker";
-import {
-  increaseFrequency,
-  decreaseFrequency,
-} from "../functions/page-specific/home/changeFrequency";
+import { increaseFrequency, decreaseFrequency } from "../functions/page-specific/home/changeFrequency";
 
 // Components
 import Button from "../components/Button";
@@ -28,8 +23,8 @@ import { useLocalization } from "../components/LocalizationContext";
 import homeStyles from "../styles/page-specific/home";
 
 const Home: React.FC = () => {
-  const { translate, locale } = useLocalization();
   useKeepAwake();
+  const { translate, locale } = useLocalization();
 
   const [show, setShow] = useState(false);
   const [time, setDate] = useState<Date | null>(null);
@@ -62,31 +57,35 @@ const Home: React.FC = () => {
 
   // Announces time every interval selected by the user
   useEffect(() => {
-    if (startAnnouncingTime === true) {
-      announceTime(locale, translate);
-      const intervalId = setInterval(announceTime, frequency * 60000);
+    if (startAnnouncingTime) {
+      const announce = () => announceTime(locale, translate);
+      announce(); // Announce immediately
+
+      const intervalId = setInterval(announce, frequency * 60000);
+
       return () => clearInterval(intervalId);
     }
-  }, [frequency, startAnnouncingTime]);
+  }, [frequency, startAnnouncingTime, locale, translate]);
 
   // Handles scheduled time announcement
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      const now = new Date();
-      const currentDay = now.getDay();
-      const currentTime = now.getHours() * 60 + now.getMinutes();
-      // getDay returns a number between 0 and 6, where 0 is Sunday and 6 is Saturday
+    const now = new Date();
+    const currentDay = now.getDay();
+    const currentTime = now.getHours() * 60 + now.getMinutes();
+    // getDay returns a number between 0 and 6, where 0 is Sunday and 6 is Saturday
 
-      if (selectedDays.includes(currentDay) && time) {
-        const selectedTimeInMinutes = time.getHours() * 60 + time.getMinutes();
-        if (currentTime === selectedTimeInMinutes) {
-          announceTime(locale, translate);
-          setStartAnnouncingTime(true);
+    if (selectedDays.includes(currentDay) && time) {
+      const selectedTimeInMinutes = time.getHours() * 60 + time.getMinutes();
+      if (currentTime === selectedTimeInMinutes) {
+        setStartAnnouncingTime(true);
+      } else {
+        const timeNeededToWait = selectedTimeInMinutes - currentTime;
+
+        if (timeNeededToWait > 0) {
+          setTimeout(() => setStartAnnouncingTime(true), timeNeededToWait * 60000);
         }
       }
-    }, 60000);
-
-    return () => clearInterval(intervalId);
+    }
   }, [selectedDays, time]);
 
   return (
@@ -95,12 +94,8 @@ const Home: React.FC = () => {
       <View style={homeStyles.buttonsContainer}>
         <Button
           variant="primary"
-          text={
-            startAnnouncingTime === true
-              ? translate("pause")
-              : translate("start")
-          }
-          icon={startAnnouncingTime === true ? "pause" : "play"}
+          text={startAnnouncingTime ? translate("pause") : translate("start")}
+          icon={startAnnouncingTime ? "pause" : "play"}
           leftIcon={true}
           iconSize={32}
           onClickHandler={() => setStartAnnouncingTime(!startAnnouncingTime)}
@@ -112,7 +107,7 @@ const Home: React.FC = () => {
           leftIcon={true}
           iconSize={32}
           onClickHandler={() => increaseFrequency(frequency, setFrequency)}
-          disabled={frequency === 60 ? true : false}
+          disabled={frequency === 60}
         />
         <Button
           variant="error"
@@ -121,7 +116,7 @@ const Home: React.FC = () => {
           leftIcon={true}
           iconSize={32}
           onClickHandler={() => decreaseFrequency(frequency, setFrequency)}
-          disabled={frequency > 1 ? false : true}
+          disabled={frequency <= 1}
         />
         <Button
           variant="warning"
@@ -139,14 +134,10 @@ const Home: React.FC = () => {
 
       <View style={homeStyles.textContainer}>
         <Text style={homeStyles.text}>
-          {translate("frequency")}:{" "}
-          {`${translate("every")} ${frequency} ${translate("minutes")}`}
+          {translate("frequency")}: {`${translate("every")} ${frequency} ${translate("minutes")}`}
         </Text>
         <Text style={homeStyles.text}>
-          {translate("selectedTime")}:{" "}
-          {time === null
-            ? translate("pleaseSelect")
-            : time?.toLocaleTimeString()}
+          {translate("selectedTime")}: {time === null ? translate("pleaseSelect") : time.toLocaleTimeString()}
         </Text>
       </View>
 
