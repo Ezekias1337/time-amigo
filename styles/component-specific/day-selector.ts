@@ -15,6 +15,9 @@ const daySelectorStyles = StyleSheet.create({
   activeButton: {
     backgroundColor: colors.primary500,
     color: colors.neutral100,
+    padding: 15,
+    marginTop: 20,
+    borderRadius: borderRadius.borderRadius,
   },
   viewContainer: {
     display: "flex",

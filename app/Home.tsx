@@ -14,7 +14,6 @@ import handleAppStateChange from "../functions/page-specific/home/handleAppState
 import loadSettingsFromStorage from "../functions/page-specific/home/loadSettingsFromStorage";
 import saveTimeToStorage from "../functions/page-specific/home/saveTimeToStorage";
 import showTimepicker from "../functions/page-specific/home/showTimePicker";
-
 import {
   increaseFrequency,
   decreaseFrequency,

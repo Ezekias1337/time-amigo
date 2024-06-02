@@ -1,9 +1,10 @@
 // Library Imports
-import React, { useState } from "react";
-import { TouchableOpacity, View, Text, StyleSheet } from "react-native";
+import React, { useState, useEffect } from "react";
+import { TouchableOpacity, View, Text } from "react-native";
 
 // Functions, Helpers, Utils, and Hooks
-import toggleDay from "../functions/component-specific/day-selector/toggleDay";
+import handleToggleDay from "../functions/component-specific/day-selector/handleToggleDay";
+import fetchSelectedDays from "../functions/component-specific/day-selector/fetchSelectedDays";
 
 // Components
 import { useLocalization } from "../components/LocalizationContext";
@@ -25,19 +26,35 @@ const DayOfWeekSelector: React.FC = () => {
   ];
 
   const [selectedDays, setSelectedDays] = useState<string[]>([]);
+  const [isSelected, setIsSelected] = useState(Array(7).fill(false));
+
+  useEffect(() => {
+    fetchSelectedDays(daysOfWeek, setIsSelected);
+  }, []);
 
   return (
     <View style={daySelectorStyles.viewContainer}>
       {daysOfWeek.map((day, index) => (
         <TouchableOpacity
-          style={[
-            daySelectorStyles.inactiveButton,
-            selectedDays.includes(day) ? daySelectorStyles.activeButton : null,
-          ]}
+          style={
+            isSelected[index] === true
+              ? daySelectorStyles.activeButton
+              : daySelectorStyles.inactiveButton
+          }
           key={day}
-          onPress={() => toggleDay(day, index, selectedDays, setSelectedDays)}
+          onPress={() =>
+            handleToggleDay(
+              day,
+              index,
+              selectedDays,
+              setSelectedDays,
+              setIsSelected
+            )
+          }
         >
-          <Text style={{ fontSize: fontSizes.general }}>{`${day[0]}`}</Text>
+          <Text style={{ fontSize: fontSizes.general }}>
+            {day[0].toUpperCase()}
+          </Text>
         </TouchableOpacity>
       ))}
     </View>

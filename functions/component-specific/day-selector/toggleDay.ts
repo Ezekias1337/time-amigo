@@ -35,7 +35,11 @@ const toggleDay = async (
       break;
   }
 
-  if (selectedDays.includes(day)) {
+  console.log("dayString", dayString);
+  console.log("selectedDays", selectedDays);
+  console.log("day", day);
+
+  if (selectedDays.includes(day.toLowerCase())) {
     setSelectedDays(selectedDays.filter((selectedDay) => selectedDay !== day));
     await AsyncStorage.setItem(dayString, "false");
   } else {
